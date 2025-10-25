@@ -1,17 +1,24 @@
 from django.utils import timezone
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, filters
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Task
 from .serializers import TaskSerializer
 
 
-# ✅ List + Create View
+# ✅ List + Create View with Filtering, Search & Ordering
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    # Filter, search, and ordering
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["status", "priority"]  # e.g., ?status=Pending&priority=High
+    search_fields = ["title", "description"]  # e.g., ?search=report
+    ordering_fields = ["due_date", "priority", "created_at"]  # e.g., ?ordering=due_date
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
@@ -26,18 +33,12 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Only allow access to the user's own tasks
         return Task.objects.filter(user=self.request.user)
 
     def perform_update(self, serializer):
         task = self.get_object()
-
-        # Prevent editing of completed tasks
         if task.status == "Completed":
-            raise PermissionDenied(
-                "Completed tasks cannot be edited unless reverted to Pending."
-            )
-
+            raise PermissionDenied("Completed tasks cannot be edited unless reverted to Pending.")
         serializer.save(updated_at=timezone.now())
 
     def delete(self, request, *args, **kwargs):
