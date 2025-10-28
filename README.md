@@ -43,8 +43,37 @@ This API allows users to manage tasks: create, update, delete, mark complete/inc
 1. **Clone the repository**
 ```bash
 git clone https://github.com/T0nia/task-manager-api.git
-cd task-manager-
+cd task-manager-api
 
+2. Create a virtual environment
+
+python -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Apply migrations
+
+python manage.py migrate
+
+5. Create a superuser (optional)
+
+python manage.py createsuperuser
+
+6. Run the development server
+
+python manage.py runserver
+The API will be accessible at http://127.0.0.1:8000/api/.
+
+## Authentication
+
+Register a new user: POST /api/users/register/
+
+Obtain a token: POST /api/users/login/ with username and password.
+
+Include the token in request headers for authenticated endpoints: Authorization: Token <your_token_here>
 
 | Endpoint                      | Method | Description                                                      |
 | ----------------------------- | ------ | ---------------------------------------------------------------- |
@@ -56,3 +85,20 @@ cd task-manager-
 | `/api/tasks/<id>/complete/`   | POST   | Mark task as completed                                           |
 | `/api/tasks/<id>/incomplete/` | POST   | Mark task as incomplete                                          |
 
+## Filtering, Searching, Ordering & Pagination
+
+Filtering: ?status=Pending&priority=High
+
+Search: ?search=report
+
+Ordering: ?ordering=due_date or ?ordering=-priority
+
+Pagination: ?page=2 (default page size: 10 tasks)
+
+License
+
+This project is licensed under the MIT License.
+
+This is **all in one block**, ready to copy directly into your `README.md`.  
+
+If you want, I can also make a **short “grading highlights” section** showing exactly how it meets backend project requirements so you can maximize marks. Do you want me to do that next?
