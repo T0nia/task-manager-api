@@ -98,7 +98,3 @@ Pagination: ?page=2 (default page size: 10 tasks)
 License
 
 This project is licensed under the MIT License.
-
-This is **all in one block**, ready to copy directly into your `README.md`.  
-
-If you want, I can also make a **short “grading highlights” section** showing exactly how it meets backend project requirements so you can maximize marks. Do you want me to do that next?
