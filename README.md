@@ -95,6 +95,3 @@ Ordering: ?ordering=due_date or ?ordering=-priority
 
 Pagination: ?page=2 (default page size: 10 tasks)
 
-License
-
-This project is licensed under the MIT License.
