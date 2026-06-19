@@ -91,7 +91,3 @@ Filtering: ?status=Pending&priority=High
 
 Search: ?search=report
 
-Ordering: ?ordering=due_date or ?ordering=-priority
-
-Pagination: ?page=2 (default page size: 10 tasks)
-
