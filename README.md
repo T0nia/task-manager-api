@@ -89,5 +89,4 @@ Include the token in request headers for authenticated endpoints: Authorization:
 
 Filtering: ?status=Pending&priority=High
 
-Search: ?search=report
 
