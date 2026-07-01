@@ -14,7 +14,6 @@ This API allows users to manage tasks: create, update, delete, mark complete/inc
 - [Filtering, Searching, Ordering & Pagination](#filtering-searching-ordering--pagination)
 - [Testing](#testing)
 - [Deployment](#deployment)
-- [License](#license)
 
 ---
 
